@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // ============================================
 
@@ -41,19 +41,17 @@ const getPlanet = async (id) => {
 };
 
 const useRequest = (requestFunc) => {
-  const [dataState, setDataState] = useState({
+  const initialState = {
     data: null,
     isLoading: true,
     error: null
-  });
+  };
+
+  const [dataState, setDataState] = useState(initialState);
   let flag = false;
 
   const handleRequest = async () => {
-    setDataState({
-      data: null,
-      isLoading: true,
-      error: null
-    });
+    setDataState({ ...initialState, isLoading: true });
 
     flag = true;
 
@@ -74,7 +72,6 @@ const useRequest = (requestFunc) => {
 
       throw new Error(`missing fetch planet data. Error: ${error}`);
     }
-
   };
 
   useEffect(() => {
